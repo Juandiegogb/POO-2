@@ -5,10 +5,12 @@
 package view;
 
 //import com.mysql.jdbc.PreparedStatement;
+import Data.dataRegistro;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.usuarios;
 
 /**
  *
@@ -20,6 +22,7 @@ public class registro extends javax.swing.JFrame {
 
     public registro() {
         initComponents();
+        crear.setVisible(false);
         this.setLocationRelativeTo(this);
 
     }
@@ -35,17 +38,19 @@ public class registro extends javax.swing.JFrame {
         cedula = new javax.swing.JTextField();
         nombres = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        x = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         etiquetaCC = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        checkCedula = new javax.swing.JLabel();
         contraseña = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        test = new javax.swing.JButton();
-        hola = new javax.swing.JLabel();
+        confirmacion = new javax.swing.JPasswordField();
+        crear = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        x1 = new javax.swing.JPanel();
+        x = new javax.swing.JPanel();
+        checkContraseña = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -102,8 +107,14 @@ public class registro extends javax.swing.JFrame {
         cedula.setText("Número de cédula");
         cedula.setPreferredSize(new java.awt.Dimension(125, 25));
         cedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cedulaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cedulaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cedulaMouseExited(evt);
             }
         });
         cedula.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -144,32 +155,6 @@ public class registro extends javax.swing.JFrame {
         jLabel1.setText("REGISTRO DE NUEVO USUARIO");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
-        javax.swing.GroupLayout xLayout = new javax.swing.GroupLayout(x);
-        x.setLayout(xLayout);
-        xLayout.setHorizontalGroup(
-            xLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        xLayout.setVerticalGroup(
-            xLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(x, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, 50));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 140, 40));
-
         jLabel3.setText("         ");
 
         jLabel5.setText("Contraseña");
@@ -181,15 +166,19 @@ public class registro extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jLabel3))
                     .addComponent(etiquetaCC)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addContainerGap(11, Short.MAX_VALUE))
+                    .addComponent(checkCedula))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,9 +187,11 @@ public class registro extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(29, 29, 29)
                 .addComponent(etiquetaCC)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkCedula)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel6)
                 .addGap(14, 14, 14))
         );
@@ -209,6 +200,14 @@ public class registro extends javax.swing.JFrame {
 
         contraseña.setForeground(new java.awt.Color(51, 153, 255));
         contraseña.setText("jPasswordField1");
+        contraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contraseñaMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                contraseñaMouseExited(evt);
+            }
+        });
         contraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 contraseñaKeyTyped(evt);
@@ -216,24 +215,61 @@ public class registro extends javax.swing.JFrame {
         });
         getContentPane().add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 190, -1));
 
-        jPasswordField2.setForeground(new java.awt.Color(51, 153, 255));
-        jPasswordField2.setText("jPasswordField2");
-        getContentPane().add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 190, -1));
-
-        test.setText("jButton1");
-        test.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testActionPerformed(evt);
+        confirmacion.setForeground(new java.awt.Color(51, 153, 255));
+        confirmacion.setText("jPasswordField2");
+        confirmacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                confirmacionMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                confirmacionMouseExited(evt);
             }
         });
-        getContentPane().add(test, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
-        getContentPane().add(hola, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+        getContentPane().add(confirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 190, -1));
+
+        crear.setText("Crear");
+        crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearActionPerformed(evt);
+            }
+        });
+        getContentPane().add(crear, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, -1, -1));
+
+        jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, -1, -1));
+
+        x.setLayout(new java.awt.GridLayout());
+
+        javax.swing.GroupLayout x1Layout = new javax.swing.GroupLayout(x1);
+        x1.setLayout(x1Layout);
+        x1Layout.setHorizontalGroup(
+            x1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(x1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(x, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        x1Layout.setVerticalGroup(
+            x1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(x1Layout.createSequentialGroup()
+                .addComponent(x, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(x1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, -1, -1));
+        getContentPane().add(checkContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 120, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombresMouseClicked
         nombres.setText("");
+        crear.setVisible(false);
 
     }//GEN-LAST:event_nombresMouseClicked
 
@@ -310,31 +346,11 @@ public class registro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nombresKeyTyped
 
-    private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
-        //String a = cedula.getText();
-        //int b = Integer.parseInt(a);
-        try {
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test11", "root", "");
-            PreparedStatement a = cn.prepareStatement("INSERT INTO"+" prueba (id,nombre)values(?,?) ");
-            a.setInt(1, 0);
-            a.setString(2, nombres.getText().trim() );
-            /*
-            pst.setString(2,nombres.getText().trim());
-            pst.setString(2,contraseña.getText().trim());
-            */
-            a.executeUpdate();
-            /*
-            nombres.setText("");
-            cedula.setText("");
-            contraseña.setText("");*/
-            hola.setText("listo");
-            
-            
+    private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
+        usuarios nuevoUsuario = new usuarios();
+        nuevoUsuario.crear(nombres, cedula, contraseña);
 
-        } catch (Exception e) {
-            System.out.println("mal    "+e);
-        }
-    }//GEN-LAST:event_testActionPerformed
+    }//GEN-LAST:event_crearActionPerformed
 
     private void contraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseñaKeyTyped
         String a = contraseña.getText();
@@ -348,6 +364,44 @@ public class registro extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_contraseñaKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dataRegistro ob = new dataRegistro();
+        ob.verificar(cedula, contraseña, confirmacion, checkCedula, checkContraseña, crear);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cedulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cedulaMouseClicked
+        crear.setVisible(false);
+        cedula.setText("");
+
+    }//GEN-LAST:event_cedulaMouseClicked
+
+    private void cedulaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cedulaMouseExited
+        String nombre = cedula.getText();
+        if (nombre.equals(vacio)) {
+            nombres.setText("Número de cédula");    }//GEN-LAST:event_cedulaMouseExited
+    }
+    private void contraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseñaMouseClicked
+        crear.setVisible(false);
+        contraseña.setText(vacio);
+    }//GEN-LAST:event_contraseñaMouseClicked
+
+    private void confirmacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmacionMouseClicked
+        crear.setVisible(false);
+        confirmacion.setText(vacio);
+    }//GEN-LAST:event_confirmacionMouseClicked
+
+    private void contraseñaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseñaMouseExited
+        if (contraseña.getText().equals(vacio)) {
+            contraseña.setText("aaaaaa");
+        }
+    }//GEN-LAST:event_contraseñaMouseExited
+
+    private void confirmacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmacionMouseExited
+        if (confirmacion.getText().equals(vacio)) {
+            confirmacion.setText("zxcvbl");
+        }
+    }//GEN-LAST:event_confirmacionMouseExited
 
     public static void main(String args[]) {
 
@@ -363,21 +417,23 @@ public class registro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel azul;
     private javax.swing.JTextField cedula;
+    private javax.swing.JLabel checkCedula;
+    private javax.swing.JLabel checkContraseña;
+    private javax.swing.JPasswordField confirmacion;
     private javax.swing.JPasswordField contraseña;
+    private javax.swing.JButton crear;
     private javax.swing.JLabel etiquetaCC;
-    private javax.swing.JLabel hola;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField nombres;
-    private javax.swing.JButton test;
     private javax.swing.JPanel volver;
     private javax.swing.JLabel volverLabel;
     private javax.swing.JPanel x;
+    private javax.swing.JPanel x1;
     // End of variables declaration//GEN-END:variables
 }

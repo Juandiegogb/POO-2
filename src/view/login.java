@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
+import model.usuarios;
+import modelView.RegistroMerc;
 
 /**
  *
@@ -35,14 +37,16 @@ public class login extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel5 = new javax.swing.JPanel();
-        contraseña_textfield = new javax.swing.JPasswordField();
-        usuario_textfield = new javax.swing.JTextField();
+        contraseña = new javax.swing.JPasswordField();
+        usuario = new javax.swing.JTextField();
         panel_ingresa = new javax.swing.JPanel();
         label_login = new javax.swing.JLabel();
         panel_registro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -66,35 +70,41 @@ public class login extends javax.swing.JFrame {
                 formMouseClicked(evt);
             }
         });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        contraseña_textfield.setForeground(new java.awt.Color(51, 153, 255));
-        contraseña_textfield.setText("******");
-        contraseña_textfield.addMouseListener(new java.awt.event.MouseAdapter() {
+        contraseña.setForeground(new java.awt.Color(51, 153, 255));
+        contraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                contraseña_textfieldMouseClicked(evt);
+                contraseñaMouseClicked(evt);
             }
         });
-        contraseña_textfield.addActionListener(new java.awt.event.ActionListener() {
+        contraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contraseña_textfieldActionPerformed(evt);
+                contraseñaActionPerformed(evt);
             }
         });
-        getContentPane().add(contraseña_textfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 190, 30));
+        getContentPane().add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 190, 30));
 
-        usuario_textfield.setForeground(new java.awt.Color(51, 153, 255));
-        usuario_textfield.setText("Usuario(CC)");
-        usuario_textfield.addMouseListener(new java.awt.event.MouseAdapter() {
+        usuario.setForeground(new java.awt.Color(51, 153, 255));
+        usuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                usuario_textfieldMouseClicked(evt);
+                usuarioMouseClicked(evt);
             }
         });
-        usuario_textfield.addKeyListener(new java.awt.event.KeyAdapter() {
+        usuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                usuario_textfieldKeyPressed(evt);
+                usuarioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                usuarioKeyTyped(evt);
             }
         });
-        getContentPane().add(usuario_textfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 190, 30));
+        getContentPane().add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 190, 30));
 
         panel_ingresa.setBackground(new java.awt.Color(51, 153, 255));
         panel_ingresa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,7 +130,7 @@ public class login extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 22, 6, 30);
         panel_ingresa.add(label_login, gridBagConstraints);
 
-        getContentPane().add(panel_ingresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 100, 25));
+        getContentPane().add(panel_ingresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 100, 25));
 
         panel_registro.setBackground(new java.awt.Color(51, 153, 255));
         panel_registro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -141,7 +151,7 @@ public class login extends javax.swing.JFrame {
         jLabel1.setText("REGISTRATE");
         panel_registro.add(jLabel1, new java.awt.GridBagConstraints());
 
-        getContentPane().add(panel_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 100, 25));
+        getContentPane().add(panel_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 100, 25));
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -169,23 +179,30 @@ public class login extends javax.swing.JFrame {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, -1, 30));
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 153, 255));
+        jLabel2.setText("Número de cédula");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 153, 255));
+        jLabel3.setText("Contraseña");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usuario_textfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuario_textfieldMouseClicked
-        usuario_textfield.setText("");
-    }//GEN-LAST:event_usuario_textfieldMouseClicked
+    private void usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioMouseClicked
+    }//GEN-LAST:event_usuarioMouseClicked
 
-    private void contraseña_textfieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseña_textfieldMouseClicked
-        contraseña_textfield.setText("");
+    private void contraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseñaMouseClicked
 
-    }//GEN-LAST:event_contraseña_textfieldMouseClicked
+    }//GEN-LAST:event_contraseñaMouseClicked
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        usuario_textfield.setText("Usuario(CC)");
-        contraseña_textfield.setText("******");
+       
     }//GEN-LAST:event_formMouseClicked
 
     private void panel_registroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_registroMouseEntered
@@ -211,18 +228,32 @@ public class login extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_panel_registroMouseClicked
 
-    private void contraseña_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseña_textfieldActionPerformed
+    private void contraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraseñaActionPerformed
 
-    }//GEN-LAST:event_contraseña_textfieldActionPerformed
+    }//GEN-LAST:event_contraseñaActionPerformed
 
-    private void usuario_textfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuario_textfieldKeyPressed
+    private void usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyPressed
 
-    }//GEN-LAST:event_usuario_textfieldKeyPressed
+    }//GEN-LAST:event_usuarioKeyPressed
 
     private void panel_ingresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_ingresaMouseClicked
-        
+        RegistroMerc Users = new RegistroMerc();
+        Users.buscar(usuario, contraseña, this);
         
     }//GEN-LAST:event_panel_ingresaMouseClicked
+
+    private void usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyTyped
+        String a = usuario.getText();
+        int cantidad = a.length();
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9' || cantidad >= 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_usuarioKeyTyped
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        
+    }//GEN-LAST:event_formKeyTyped
 
     /**
      * @param args the command line arguments
@@ -240,14 +271,16 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField contraseña_textfield;
+    private javax.swing.JPasswordField contraseña;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel label_login;
     private javax.swing.JPanel panel_ingresa;
     private javax.swing.JPanel panel_registro;
-    private javax.swing.JTextField usuario_textfield;
+    private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }

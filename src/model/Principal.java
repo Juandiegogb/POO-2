@@ -1,5 +1,7 @@
+package model;
 
-package proyectopoo;
+
+
 
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.Connection;
